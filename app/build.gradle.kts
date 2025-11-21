@@ -58,6 +58,7 @@ dependencies {
 
     //DaggerHilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.runtime.livedata)
     kapt(libs.hilt.compiler)
 
     //Retrofit
@@ -80,6 +81,8 @@ dependencies {
     // for ROOM
     implementation (libs.androidx.room.ktx)
     kapt (libs.androidx.room.compiler)
+
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
