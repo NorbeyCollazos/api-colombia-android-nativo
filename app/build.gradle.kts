@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.jetbrainsKotlinSerialization)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -83,6 +84,7 @@ dependencies {
     kapt (libs.androidx.room.compiler)
 
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.7")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

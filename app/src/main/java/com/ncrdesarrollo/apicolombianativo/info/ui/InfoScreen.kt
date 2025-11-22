@@ -15,12 +15,19 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,7 +40,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.ncrdesarrollo.apicolombianativo.R
 import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
@@ -42,44 +48,68 @@ import com.ncrdesarrollo.apicolombianativo.info.ui.model.InfoModel
 import com.ncrdesarrollo.apicolombianativo.ui.theme.ApiColombiaNativoTheme
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InfoScreen(
     modifier: Modifier = Modifier,
-    viewModel: InfoViewModel = hiltViewModel()
+    viewModel: InfoViewModel,
+    onNavigateBack: () -> Unit
 ) {
     val info by viewModel.infoLoadDataModel.collectAsState()
 
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        when (val state = info) {
-            is UiState.Loading -> {
-                CircularProgressIndicator(modifier = Modifier.size(50.dp))
-            }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Información") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver"
+                        )
+                    }
+                })
 
-            is UiState.Success -> {
-                InfoContentView(info = state.data)
-            }
+        }
+    ) { innerPadding ->
 
-            is UiState.Error -> {
-                Text("Error al cargar la información")
-            }
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            when (val state = info) {
+                is UiState.Loading -> {
+                    CircularProgressIndicator(modifier = Modifier.size(50.dp))
+                }
 
-            is UiState.Empty -> {
-                Text("No hay información disponible")
+                is UiState.Success -> {
+                    InfoContentView(info = state.data, Modifier.padding(innerPadding))
+                }
+
+                is UiState.Error -> {
+                    Text("Error al cargar la información")
+                }
+
+                is UiState.Empty -> {
+                    Text("No hay información disponible")
+                }
             }
         }
+
     }
 
 }
 
 @Composable
 fun InfoContentView(info: InfoModel, modifier: Modifier = Modifier) {
-    Column (
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+
     ) {
 
         val details = listOfNotNull(
