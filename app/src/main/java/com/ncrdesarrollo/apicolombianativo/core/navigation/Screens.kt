@@ -7,3 +7,9 @@ object Home
 
 @Serializable
 object Info
+
+@Serializable
+object Departments
+
+@Serializable
+data class DepartmentInfo(val idDepartment : Int? = null)
