@@ -49,22 +49,22 @@ class DepartmentsRepository @Inject constructor(private val dataSource: IDepartm
 
         val jsonCityCapital = jsonObject.getJSONObject("cityCapital")
 
-            return DepartmentModel(
-                id = jsonObject.optInt("id"),
-                name = jsonObject.optString("name"),
-                description = jsonObject.optString("description"),
-                surface = jsonObject.optInt("surface"),
-                population = jsonObject.optInt("population"),
-                cityCapital = CityCapital(
-                    id = jsonCityCapital.optInt("id"),
-                    name = jsonCityCapital.optString("name"),
-                    description = jsonCityCapital.optString("description"),
-                    surface = jsonCityCapital.optInt("surface"),
-                    population = jsonCityCapital.optInt("population"),
-                    postalCode = jsonCityCapital.optString("postalCode"),
-                )
-
+        return DepartmentModel(
+            id = jsonObject.optInt("id"),
+            name = jsonObject.optString("name"),
+            description = jsonObject.optString("description"),
+            surface = jsonObject.optInt("surface"),
+            population = jsonObject.optInt("population"),
+            cityCapital = CityCapital(
+                id = jsonCityCapital.optInt("id"),
+                name = jsonCityCapital.optString("name"),
+                description = jsonCityCapital.optString("description"),
+                surface = jsonCityCapital.optInt("surface"),
+                population = jsonCityCapital.optInt("population"),
+                postalCode = jsonCityCapital.optString("postalCode"),
             )
+
+        )
     }
 
 }
