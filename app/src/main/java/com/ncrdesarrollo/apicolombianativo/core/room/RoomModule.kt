@@ -24,4 +24,8 @@ object RoomModule {
     @Provides
     fun provideInfoDao(db: InfoColombiaDatabase) = db.infoDao()
 
+    @Singleton
+    @Provides
+    fun provideDepartments(db: InfoColombiaDatabase) = db.departmentsDao()
+
 }

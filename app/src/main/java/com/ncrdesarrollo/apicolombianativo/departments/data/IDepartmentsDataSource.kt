@@ -1,12 +1,14 @@
 package com.ncrdesarrollo.apicolombianativo.departments.data
 
-import okhttp3.ResponseBody
-import retrofit2.Response
+import com.ncrdesarrollo.apicolombianativo.departments.data.local.DepartmentEntity
+import kotlinx.coroutines.flow.Flow
 
 interface IDepartmentsDataSource {
 
-    suspend fun getDepartments(): Response<ResponseBody>
-    suspend fun getDepartmentById(id: Int): Response<ResponseBody>
+    suspend fun getDepartments(): Result<List<DepartmentDto>>
+    suspend fun upsertDepartments(departments: List<DepartmentEntity>)
+    fun getDepartmentsLocal(): Flow<List<DepartmentEntity>>
+    suspend fun getDepartmentById(id: Int): Result<DepartmentEntity?>
 }
 
 

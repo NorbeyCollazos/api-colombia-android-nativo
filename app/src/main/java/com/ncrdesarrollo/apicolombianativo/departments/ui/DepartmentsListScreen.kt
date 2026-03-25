@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
 
 
@@ -35,7 +36,7 @@ import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
 @Composable
 fun DepartmentsListScreen(
     modifier: Modifier = Modifier,
-    viewModel: DepartmentsViewModel,
+    viewModel: DepartmentsViewModel = hiltViewModel(),
     onClickItem: (Int) -> Unit,
     onBackClick: () -> Unit
 ) {
@@ -55,7 +56,7 @@ fun DepartmentsListScreen(
         }
     ) { paddingValues ->
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {

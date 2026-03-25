@@ -28,7 +28,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,28 +36,27 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DepartmentInfoScreen(
     modifier: Modifier = Modifier,
-    viewModel: DepartmentsViewModel,
+    viewModel: DepartmentInfoViewModel = hiltViewModel(),
     onBackClick: () -> Unit
 ) {
 
     val departmentInfo by viewModel.infoDepartment.collectAsState()
 
 
-    LaunchedEffect(Unit) {
-        viewModel.getDepartmentInfo()
-    }
-
     val titleAppBar = when (val state = departmentInfo) {
         UiState.Empty -> "Detalles"
         is UiState.Loading -> "Cargando..."
         is UiState.Error -> "Error"
-        is UiState.Success -> {state.data.name}
+        is UiState.Success -> {
+            state.data?.name
+        }
     }
 
     Scaffold(
@@ -78,7 +76,7 @@ fun DepartmentInfoScreen(
         }
     ) { paddingValues ->
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
@@ -87,12 +85,15 @@ fun DepartmentInfoScreen(
                 UiState.Empty -> {
                     Text(text = "No hay información disponible")
                 }
+
                 is UiState.Error -> {
                     Text(text = state.message)
                 }
+
                 UiState.Loading -> {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
+
                 is UiState.Success -> {
                     Column(
                         modifier = Modifier
@@ -107,21 +108,31 @@ fun DepartmentInfoScreen(
                             icon = Icons.Default.Info,
                             containerColor = MaterialTheme.colorScheme.primaryContainer
                         ) {
-                            state.data.name?.let { name -> InfoRow("Nombre", name) }
-                            state.data.description?.let { description -> InfoRow("Descripción", description) }
-                            InfoRow("Población", "${state.data.population} hab.")
-                            InfoRow("Superficie", "${state.data.surface} km²")
+                            state.data?.name?.let { name -> InfoRow("Nombre", name) }
+                            state.data?.description?.let { description ->
+                                InfoRow(
+                                    "Descripción",
+                                    description
+                                )
+                            }
+                            InfoRow("Población", "${state.data?.population} hab.")
+                            InfoRow("Superficie", "${state.data?.surface} km²")
                         }
 
                         // SECCIÓN CAPITAL
-                        state.data.cityCapital?.let { capital ->
+                        state.data?.cityCapital?.let { capital ->
                             InfoCard(
                                 title = "Ciudad Capital",
                                 icon = Icons.Default.LocationOn,
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer
                             ) {
                                 capital.name?.let { nameCapital -> InfoRow("Nombre", nameCapital) }
-                                capital.description?.let { descriptionCapital -> InfoRow("Descripción", descriptionCapital) }
+                                capital.description?.let { descriptionCapital ->
+                                    InfoRow(
+                                        "Descripción",
+                                        descriptionCapital
+                                    )
+                                }
                                 InfoRow("Superficie", "${capital.surface} km²")
                                 InfoRow("Población", "${capital.population} hab.")
                                 InfoRow("Código Postal", capital.postalCode ?: "N/A")
@@ -149,7 +160,11 @@ fun InfoCard(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(icon, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
-                Text(text = title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
             }
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
             content()
@@ -160,7 +175,11 @@ fun InfoCard(
 @Composable
 fun InfoRow(label: String, value: String) {
     Column(modifier = Modifier.padding(vertical = 4.dp)) {
-        Text(text = label, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.secondary)
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.secondary
+        )
         Text(text = value, style = MaterialTheme.typography.bodyMedium, fontSize = 16.sp)
     }
 }

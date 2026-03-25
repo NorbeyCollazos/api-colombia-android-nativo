@@ -6,6 +6,8 @@ import com.ncrdesarrollo.apicolombianativo.departments.ui.model.DepartmentModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -35,13 +37,12 @@ class DepartmentsInteractorTest {
                 description = "Descripción de antioquia"
             )
         )
-        coEvery { repository.getDepartments() } returns listDepartment
+        coEvery { repository.getDepartments() } returns flowOf(Result.success(listDepartment))
 
         //WHEN
         val response = interactor.getDepartments()
 
         //THEN
-        assert(response.isNotEmpty())
         assert(response == listDepartment)
     }
 

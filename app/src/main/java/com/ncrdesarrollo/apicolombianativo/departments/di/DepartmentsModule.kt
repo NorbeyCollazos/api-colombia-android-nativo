@@ -4,6 +4,7 @@ import com.ncrdesarrollo.apicolombianativo.departments.data.DepartmentsApiServic
 import com.ncrdesarrollo.apicolombianativo.departments.data.DepartmentsDataSource
 import com.ncrdesarrollo.apicolombianativo.departments.data.DepartmentsRepository
 import com.ncrdesarrollo.apicolombianativo.departments.data.IDepartmentsDataSource
+import com.ncrdesarrollo.apicolombianativo.departments.data.local.DepartmentsDao
 import com.ncrdesarrollo.apicolombianativo.departments.domain.DepartmentsInteractor
 import com.ncrdesarrollo.apicolombianativo.departments.domain.IDepartmentsInteractor
 import com.ncrdesarrollo.apicolombianativo.departments.domain.IDepartmentsRepository
@@ -26,8 +27,8 @@ object DepartmentsModule {
 
     @Singleton
     @Provides
-    fun providesDepartmentsDataSource(apiDepartments: DepartmentsApiService): IDepartmentsDataSource {
-        return DepartmentsDataSource(apiDepartments)
+    fun providesDepartmentsDataSource(apiDepartments: DepartmentsApiService, dao: DepartmentsDao): IDepartmentsDataSource {
+        return DepartmentsDataSource(apiDepartments, dao)
     }
 
     @Singleton

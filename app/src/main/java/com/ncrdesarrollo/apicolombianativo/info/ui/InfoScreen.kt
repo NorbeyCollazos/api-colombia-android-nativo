@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -33,6 +34,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -40,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.ncrdesarrollo.apicolombianativo.R
 import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
@@ -52,7 +55,7 @@ import com.ncrdesarrollo.apicolombianativo.ui.theme.ApiColombiaNativoTheme
 @Composable
 fun InfoScreen(
     modifier: Modifier = Modifier,
-    viewModel: InfoViewModel,
+    viewModel: InfoViewModel = hiltViewModel(),
     onNavigateBack: () -> Unit
 ) {
     val info by viewModel.infoDataState.collectAsState()
@@ -87,7 +90,7 @@ fun InfoScreen(
                 }
 
                 is UiState.Success -> {
-                    InfoContentView(info = state.data, Modifier.padding(innerPadding))
+                    InfoContentView(info = state.data)
                 }
 
                 is UiState.Error -> {
@@ -193,7 +196,9 @@ fun ImageFlag(flags: List<String>?) {
             contentDescription = "Bandera de Colombia",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp),
+                .height(200.dp)
+                .padding(top = 16.dp)
+                .clip(shape = RoundedCornerShape(8.dp)),
             contentScale = ContentScale.Crop
         )
     }
