@@ -4,6 +4,7 @@ import com.ncrdesarrollo.apicolombianativo.info.data.IInfoDataSource
 import com.ncrdesarrollo.apicolombianativo.info.data.InfoApiService
 import com.ncrdesarrollo.apicolombianativo.info.data.InfoDataSource
 import com.ncrdesarrollo.apicolombianativo.info.data.InfoRepository
+import com.ncrdesarrollo.apicolombianativo.info.data.local.InfoDao
 import com.ncrdesarrollo.apicolombianativo.info.domain.IInfoInteractor
 import com.ncrdesarrollo.apicolombianativo.info.domain.IInfoRepository
 import com.ncrdesarrollo.apicolombianativo.info.domain.InfoInteractor
@@ -26,8 +27,8 @@ object InfoModule {
 
     @Provides
     @Singleton
-    fun providesDatasource(apiInfo: InfoApiService): IInfoDataSource =
-        InfoDataSource(apiInfo)
+    fun providesDatasource(apiInfo: InfoApiService, dao: InfoDao): IInfoDataSource =
+        InfoDataSource(apiInfo, dao)
 
 
     @Provides

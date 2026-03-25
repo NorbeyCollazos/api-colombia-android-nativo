@@ -55,7 +55,7 @@ fun InfoScreen(
     viewModel: InfoViewModel,
     onNavigateBack: () -> Unit
 ) {
-    val info by viewModel.infoLoadDataModel.collectAsState()
+    val info by viewModel.infoDataState.collectAsState()
 
     Scaffold(
         topBar = {

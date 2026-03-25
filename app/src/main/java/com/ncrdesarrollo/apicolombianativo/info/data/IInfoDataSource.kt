@@ -1,11 +1,13 @@
 package com.ncrdesarrollo.apicolombianativo.info.data
 
-import okhttp3.ResponseBody
-import retrofit2.Response
+import com.ncrdesarrollo.apicolombianativo.info.data.local.InfoEntity
+import kotlinx.coroutines.flow.Flow
 
 interface IInfoDataSource {
 
-    suspend fun getInfo(): Response<ResponseBody>
+    suspend fun getInfo(): Result<InfoDto>
+    suspend fun saveLocalInfo(infoEntity: InfoEntity)
+    fun getInfoLocal(): Flow<InfoEntity>
 }
 
 
