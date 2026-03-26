@@ -57,7 +57,7 @@ fun AppNavigation() {
         startDestination = "home" // Define la pantalla inicial
     ) {
         // 3. Define la ruta "home" y el Composable que se mostrará
-        composable("home") {
+        /*composable("home") {
             HomeScreen(
                 onOptionClick = { route ->
                     // 4. Aquí manejas la lógica de navegación cuando se hace clic en una opción
@@ -66,7 +66,7 @@ fun AppNavigation() {
                     // navController.navigate(route)
                 }
             )
-        }
+        }*/
 
         // Aquí puedes añadir otras pantallas en el futuro
         /*

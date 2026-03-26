@@ -6,10 +6,25 @@ import kotlinx.serialization.Serializable
 object Home
 
 @Serializable
+object Profile
+
+@Serializable
+object Saved
+
+@Serializable
 object Info
 
 @Serializable
 object Departments
 
 @Serializable
-data class DepartmentInfo(val idDepartment : Int? = null)
+object Presidents
+
+@Serializable
+object Regions
+
+@Serializable
+object TouristicSites
+
+@Serializable
+data class DepartmentInfo(val idDepartment: Int? = null)

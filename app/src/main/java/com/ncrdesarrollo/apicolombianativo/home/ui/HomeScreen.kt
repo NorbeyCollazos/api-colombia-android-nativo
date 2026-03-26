@@ -17,74 +17,41 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.ncrdesarrollo.apicolombianativo.R
-import com.ncrdesarrollo.apicolombianativo.home.ui.models.BottomNavItem
+import com.ncrdesarrollo.apicolombianativo.core.navigation.Departments
+import com.ncrdesarrollo.apicolombianativo.core.navigation.Info
+import com.ncrdesarrollo.apicolombianativo.core.navigation.Presidents
+import com.ncrdesarrollo.apicolombianativo.core.navigation.Regions
+import com.ncrdesarrollo.apicolombianativo.core.navigation.TouristicSites
 import com.ncrdesarrollo.apicolombianativo.home.ui.models.HomeOption
+import com.ncrdesarrollo.apicolombianativo.home.ui.navigation.BottomNavigationBar
 import com.ncrdesarrollo.apicolombianativo.ui.theme.ApiColombiaNativoTheme
 
 
-// --- Composable principal ---
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onOptionClick: (String) -> Unit
+    navController: NavController,
+    onOptionCardClick: (Any) -> Unit,
 ) {
-    // Lista de ítems para la barra de navegación inferior
-    val bottomNavItems = listOf(
-        BottomNavItem(
-            title = "Guardados",
-            selectedIcon = Icons.Filled.Bookmark,
-            unselectedIcon = Icons.Outlined.BookmarkBorder,
-            route = "saved"
-        ),
-        BottomNavItem(
-            title = "Perfil",
-            selectedIcon = Icons.Filled.AccountCircle,
-            unselectedIcon = Icons.Outlined.AccountCircle,
-            route = "profile"
-        ),
-        BottomNavItem(
-            title = "Acerca de",
-            selectedIcon = Icons.Filled.Info,
-            unselectedIcon = Icons.Outlined.Info,
-            route = "about"
-        )
-    )
-
-    // Estado para saber qué ítem está seleccionado
-    var selectedItemIndex by remember { mutableStateOf(0) }
-
     Scaffold(
         /*topBar = {
             TopAppBar(
@@ -96,33 +63,12 @@ fun HomeScreen(
             )
         },*/
         bottomBar = {
-            NavigationBar {
-                bottomNavItems.forEachIndexed { index, item ->
-                    NavigationBarItem(
-                        selected = selectedItemIndex == index,
-                        onClick = {
-                            selectedItemIndex = index
-                            onOptionClick(item.route)
-                        },
-                        label = { Text(item.title) },
-                        icon = {
-                            Icon(
-                                imageVector = if (selectedItemIndex == index) {
-                                    item.selectedIcon
-                                } else {
-                                    item.unselectedIcon
-                                },
-                                contentDescription = item.title
-                            )
-                        }
-                    )
-                }
-            }
+            BottomNavigationBar(navController = navController)
         },
-        modifier = modifier
+        modifier = Modifier
     ) { innerPadding ->
         HomeContent(
-            onOptionClick = onOptionClick,
+            onOptionClick = onOptionCardClick,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -133,7 +79,8 @@ fun HomeBanner(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(150.dp),
+            .height(180.dp)
+            .padding(top = 25.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
@@ -160,18 +107,30 @@ fun HomeBanner(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun HomeContent(onOptionClick: (String) -> Unit, modifier: Modifier = Modifier) {
+fun HomeContent(onOptionClick: (Any) -> Unit, modifier: Modifier = Modifier) {
 
     val options = listOf(
-        HomeOption("Información", painterResource(R.drawable.info), "info"),
-        HomeOption("Departamentos", painterResource(R.drawable.departments), "departments"),
-        HomeOption("Regiones", painterResource(R.drawable.regions), "regions"),
-        HomeOption("Presidentes", painterResource(R.drawable.president), "presidents"),
-        HomeOption("Sitios Turísticos", painterResource(R.drawable.turistic_sites), "tourist_sites")
+        HomeOption("Información", painterResource(R.drawable.info), Info),
+        HomeOption(
+            "Departamentos",
+            painterResource(R.drawable.departments),
+            Departments
+        ),
+        HomeOption("Regiones", painterResource(R.drawable.regions), Regions),
+        HomeOption(
+            "Presidentes",
+            painterResource(R.drawable.president),
+            Presidents
+        ),
+        HomeOption(
+            "Sitios Turísticos",
+            painterResource(R.drawable.turistic_sites),
+            TouristicSites
+        )
     )
 
 
-    Column(modifier = modifier) {
+    Column(modifier = Modifier) {
 
         HomeBanner(modifier = Modifier.padding(16.dp))
 
@@ -232,6 +191,6 @@ fun HomeOptionCard(option: HomeOption, onClick: () -> Unit, modifier: Modifier =
 @Composable
 fun HomeScreenPreview() {
     ApiColombiaNativoTheme {
-        HomeScreen(onOptionClick = {})
+        HomeScreen(navController = NavController(LocalContext.current), onOptionCardClick = {})
     }
 }

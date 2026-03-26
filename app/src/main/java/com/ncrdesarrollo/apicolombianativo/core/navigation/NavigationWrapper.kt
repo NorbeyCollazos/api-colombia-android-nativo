@@ -9,6 +9,8 @@ import com.ncrdesarrollo.apicolombianativo.departments.ui.DepartmentInfoScreen
 import com.ncrdesarrollo.apicolombianativo.departments.ui.DepartmentsListScreen
 import com.ncrdesarrollo.apicolombianativo.home.ui.HomeScreen
 import com.ncrdesarrollo.apicolombianativo.info.ui.InfoScreen
+import com.ncrdesarrollo.apicolombianativo.profile.ui.ProfileScreen
+import com.ncrdesarrollo.apicolombianativo.saved.ui.SavedScreen
 
 @Composable
 fun NavigationWrapper(modifier: Modifier) {
@@ -17,11 +19,8 @@ fun NavigationWrapper(modifier: Modifier) {
     NavHost(navController = navController, startDestination = Home) {
 
         composable<Home> {
-            HomeScreen(modifier = modifier) { route ->
-                when (route) {
-                    "info" -> navController.navigate(Info)
-                    "departments" -> navController.navigate(Departments)
-                }
+            HomeScreen(modifier = modifier, navController = navController){ route ->
+                navController.navigate(route)
             }
         }
 
@@ -44,6 +43,14 @@ fun NavigationWrapper(modifier: Modifier) {
                 modifier = modifier,
                 onBackClick = { navController.popBackStack() }
             )
+        }
+
+        composable<Profile> {
+            ProfileScreen(modifier = modifier)
+        }
+
+        composable<Saved> {
+            SavedScreen()
         }
 
     }
