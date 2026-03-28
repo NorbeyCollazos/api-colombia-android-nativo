@@ -63,11 +63,11 @@ class DepartmentsInteractorTest {
             )
         )
 
-        coEvery { repository.getDepartmentById(1) } returns model
+        coEvery { repository.getDepartmentById(1) } returns Result.success(model)
 
         val response = interactor.getDepartmentById(1)
 
-        assert(response == model)
+        assert(response == Result.success(model))
 
     }
 

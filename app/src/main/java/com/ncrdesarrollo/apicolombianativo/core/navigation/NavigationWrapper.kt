@@ -10,6 +10,8 @@ import com.ncrdesarrollo.apicolombianativo.departments.ui.DepartmentsListScreen
 import com.ncrdesarrollo.apicolombianativo.home.ui.HomeScreen
 import com.ncrdesarrollo.apicolombianativo.info.ui.InfoScreen
 import com.ncrdesarrollo.apicolombianativo.profile.ui.ProfileScreen
+import com.ncrdesarrollo.apicolombianativo.regions.ui.RegionInfoScreen
+import com.ncrdesarrollo.apicolombianativo.regions.ui.RegionsListScreen
 import com.ncrdesarrollo.apicolombianativo.saved.ui.SavedScreen
 
 @Composable
@@ -33,7 +35,7 @@ fun NavigationWrapper(modifier: Modifier) {
         composable<Departments> {
             DepartmentsListScreen(
                 modifier = modifier,
-                onClickItem = {navController.navigate(DepartmentInfo(it))},
+                onClickItem = { navController.navigate(DepartmentInfo(it)) },
                 onBackClick = { navController.popBackStack() })
 
         }
@@ -43,6 +45,20 @@ fun NavigationWrapper(modifier: Modifier) {
                 modifier = modifier,
                 onBackClick = { navController.popBackStack() }
             )
+        }
+
+        composable<Regions> {
+            RegionsListScreen(
+                modifier = modifier,
+                onClickItem = { navController.navigate(RegionInfo(it)) },
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable<RegionInfo> {
+            RegionInfoScreen(
+                modifier = modifier,
+                onBackClick = { navController.popBackStack() })
         }
 
         composable<Profile> {

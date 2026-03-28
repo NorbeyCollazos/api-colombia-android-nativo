@@ -1,0 +1,10 @@
+package com.ncrdesarrollo.apicolombianativo.regions.domain
+
+import com.ncrdesarrollo.apicolombianativo.departments.ui.model.RegionModel
+import kotlinx.coroutines.flow.Flow
+
+interface IRegionsRepository {
+
+    fun getRegions(): Flow<Result<List<RegionModel>>>
+    suspend fun getRegionById(id: Int): Result<RegionModel?>
+}

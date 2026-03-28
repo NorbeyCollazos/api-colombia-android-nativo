@@ -24,6 +24,9 @@ object Presidents
 object Regions
 
 @Serializable
+data class RegionInfo(val idRegion: Int? = null)
+
+@Serializable
 object TouristicSites
 
 @Serializable
