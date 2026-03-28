@@ -3,6 +3,7 @@ package com.ncrdesarrollo.apicolombianativo.departments.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ncrdesarrollo.apicolombianativo.core.utils.SearchInputBar
 import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
 
 
@@ -42,11 +44,12 @@ fun DepartmentsListScreen(
 ) {
 
     val departmentsState by viewModel.departmentsState.collectAsState()
+    val searchQuery by viewModel.searchQuery.collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Departamentos de Colombia") },
+                title = { Text("Departamentos") },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Atrás")
@@ -81,15 +84,18 @@ fun DepartmentsListScreen(
                 }
 
                 is UiState.Success -> {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(state.data) { department ->
+                    Column {
+                        SearchInputBar(searchQuery) { viewModel.onSearchQueryChange(it) }
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(state.data) { department ->
 
-                            DepartmentItem(name = department.name ?: "No disponible") {
-                                department.id?.let { onClickItem(it) }
+                                DepartmentItem(name = department.name ?: "No disponible") {
+                                    department.id?.let { onClickItem(it) }
+                                }
                             }
                         }
                     }
