@@ -84,6 +84,7 @@ dependencies {
     kapt (libs.androidx.room.compiler)
 
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("io.coil-kt:coil-gif:2.6.0")
     implementation("androidx.compose.material:material-icons-extended-android:1.6.7")
 
     testImplementation(libs.junit)
