@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
-import com.ncrdesarrollo.apicolombianativo.departments.ui.RegionInfoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

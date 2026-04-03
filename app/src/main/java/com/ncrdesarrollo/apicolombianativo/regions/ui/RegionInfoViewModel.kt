@@ -1,4 +1,4 @@
-package com.ncrdesarrollo.apicolombianativo.departments.ui
+package com.ncrdesarrollo.apicolombianativo.regions.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

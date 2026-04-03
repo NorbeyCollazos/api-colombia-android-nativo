@@ -30,4 +30,10 @@ data class RegionInfo(val idRegion: Int? = null)
 object TouristicSites
 
 @Serializable
+data class TouristicSitesInfo(val idSiteTouristic: Int? = null)
+
+@Serializable
 data class DepartmentInfo(val idDepartment: Int? = null)
+
+@Serializable
+data class Map(val latitude: String, val longitude: String)

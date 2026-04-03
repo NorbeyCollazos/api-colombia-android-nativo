@@ -12,13 +12,19 @@ import com.ncrdesarrollo.apicolombianativo.presidents.data.local.PresidentEntity
 import com.ncrdesarrollo.apicolombianativo.presidents.data.local.PresidentsDao
 import com.ncrdesarrollo.apicolombianativo.regions.data.local.RegionsDao
 import com.ncrdesarrollo.apicolombianativo.regions.data.local.RegionsEntity
+import com.ncrdesarrollo.apicolombianativo.touristicAttraction.data.local.TouristicAttractionDao
+import com.ncrdesarrollo.apicolombianativo.touristicAttraction.data.local.TouristicAttractionEntity
 
-@Database(entities = [InfoEntity::class, DepartmentEntity::class, RegionsEntity::class, PresidentEntity::class], version = 1)
+@Database(
+    entities = [InfoEntity::class, DepartmentEntity::class, RegionsEntity::class, PresidentEntity::class, TouristicAttractionEntity::class],
+    version = 1
+)
 @TypeConverters(Converters::class)
-abstract class InfoColombiaDatabase: RoomDatabase() {
+abstract class InfoColombiaDatabase : RoomDatabase() {
 
     abstract fun infoDao(): InfoDao
     abstract fun departmentsDao(): DepartmentsDao
     abstract fun regionsDao(): RegionsDao
     abstract fun presidentsDao(): PresidentsDao
+    abstract fun touristicAttractionsDao(): TouristicAttractionDao
 }

@@ -36,4 +36,8 @@ object RoomModule {
     @Provides
     fun providePresidents(db: InfoColombiaDatabase) = db.presidentsDao()
 
+    @Singleton
+    @Provides
+    fun provideTouristicAttractions(db: InfoColombiaDatabase) = db.touristicAttractionsDao()
+
 }

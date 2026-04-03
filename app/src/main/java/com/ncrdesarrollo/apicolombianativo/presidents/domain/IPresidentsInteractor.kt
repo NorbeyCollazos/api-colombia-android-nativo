@@ -1,4 +1,4 @@
-package com.ncrdesarrollo.apicolombianativo.regions.domain
+package com.ncrdesarrollo.apicolombianativo.presidents.domain
 
 import com.ncrdesarrollo.apicolombianativo.presidents.ui.model.PresidentModel
 import kotlinx.coroutines.flow.Flow

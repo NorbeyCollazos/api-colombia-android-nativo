@@ -14,6 +14,8 @@ import com.ncrdesarrollo.apicolombianativo.profile.ui.ProfileScreen
 import com.ncrdesarrollo.apicolombianativo.regions.ui.RegionInfoScreen
 import com.ncrdesarrollo.apicolombianativo.regions.ui.RegionsListScreen
 import com.ncrdesarrollo.apicolombianativo.saved.ui.SavedScreen
+import com.ncrdesarrollo.apicolombianativo.touristicAttraction.ui.InfoTouristicAttractionsScreen
+import com.ncrdesarrollo.apicolombianativo.touristicAttraction.ui.TouristicAttractionsListScreen
 
 @Composable
 fun NavigationWrapper(modifier: Modifier) {
@@ -22,7 +24,7 @@ fun NavigationWrapper(modifier: Modifier) {
     NavHost(navController = navController, startDestination = Home) {
 
         composable<Home> {
-            HomeScreen(modifier = modifier, navController = navController){ route ->
+            HomeScreen(modifier = modifier, navController = navController) { route ->
                 navController.navigate(route)
             }
         }
@@ -66,6 +68,22 @@ fun NavigationWrapper(modifier: Modifier) {
             PresidentsListScreen(
                 modifier = modifier,
                 onClickItem = { navController.navigate(RegionInfo(it)) },
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable<TouristicSites> {
+            TouristicAttractionsListScreen(
+                modifier = modifier,
+                onClickItem = {navController.navigate(TouristicSitesInfo(it)) },
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable<TouristicSitesInfo> {
+            InfoTouristicAttractionsScreen (
+                modifier = modifier,
+                navigateToMap = { latitude, longitude -> navController.navigate(Map(latitude, longitude))},
                 onBackClick = { navController.popBackStack() }
             )
         }

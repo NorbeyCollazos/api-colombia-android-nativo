@@ -7,7 +7,7 @@ import com.ncrdesarrollo.apicolombianativo.presidents.data.PresidentsRepository
 import com.ncrdesarrollo.apicolombianativo.presidents.data.local.PresidentsDao
 import com.ncrdesarrollo.apicolombianativo.presidents.domain.IPresidentsRepository
 import com.ncrdesarrollo.apicolombianativo.presidents.domain.PresidentsInteractor
-import com.ncrdesarrollo.apicolombianativo.regions.domain.IPresidentsInteractor
+import com.ncrdesarrollo.apicolombianativo.presidents.domain.IPresidentsInteractor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,7 +1,6 @@
 package com.ncrdesarrollo.apicolombianativo.presidents.domain
 
 import com.ncrdesarrollo.apicolombianativo.presidents.ui.model.PresidentModel
-import com.ncrdesarrollo.apicolombianativo.regions.domain.IPresidentsInteractor
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

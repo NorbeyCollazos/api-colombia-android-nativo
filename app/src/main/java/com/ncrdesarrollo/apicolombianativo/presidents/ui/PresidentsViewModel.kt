@@ -3,8 +3,8 @@ package com.ncrdesarrollo.apicolombianativo.presidents.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ncrdesarrollo.apicolombianativo.core.utils.UiState
+import com.ncrdesarrollo.apicolombianativo.presidents.domain.IPresidentsInteractor
 import com.ncrdesarrollo.apicolombianativo.presidents.ui.model.PresidentModel
-import com.ncrdesarrollo.apicolombianativo.regions.domain.IPresidentsInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
