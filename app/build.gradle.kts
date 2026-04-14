@@ -87,6 +87,11 @@ dependencies {
     implementation("io.coil-kt:coil-gif:2.6.0")
     implementation("androidx.compose.material:material-icons-extended-android:1.6.7")
 
+    // Google Map
+    implementation("com.google.maps.android:maps-compose:2.13.1")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
+
+
     testImplementation(libs.junit)
     testImplementation ("io.mockk:mockk:1.12.2")
     androidTestImplementation(libs.androidx.junit)

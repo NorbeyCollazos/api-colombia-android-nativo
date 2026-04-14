@@ -9,6 +9,7 @@ import com.ncrdesarrollo.apicolombianativo.departments.ui.DepartmentInfoScreen
 import com.ncrdesarrollo.apicolombianativo.departments.ui.DepartmentsListScreen
 import com.ncrdesarrollo.apicolombianativo.home.ui.HomeScreen
 import com.ncrdesarrollo.apicolombianativo.info.ui.InfoScreen
+import com.ncrdesarrollo.apicolombianativo.map.MapScreen
 import com.ncrdesarrollo.apicolombianativo.presidents.ui.PresidentsListScreen
 import com.ncrdesarrollo.apicolombianativo.profile.ui.ProfileScreen
 import com.ncrdesarrollo.apicolombianativo.regions.ui.RegionInfoScreen
@@ -83,7 +84,7 @@ fun NavigationWrapper(modifier: Modifier) {
         composable<TouristicSitesInfo> {
             InfoTouristicAttractionsScreen (
                 modifier = modifier,
-                navigateToMap = { latitude, longitude -> navController.navigate(Map(latitude, longitude))},
+                navigateToMap = { latitude, longitude, title, snippet -> navController.navigate(Map(latitude, longitude, title, snippet))},
                 onBackClick = { navController.popBackStack() }
             )
         }
@@ -94,6 +95,10 @@ fun NavigationWrapper(modifier: Modifier) {
 
         composable<Saved> {
             SavedScreen()
+        }
+
+        composable<Map> {
+            MapScreen { navController.popBackStack() }
         }
 
     }

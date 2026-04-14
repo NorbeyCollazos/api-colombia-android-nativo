@@ -36,4 +36,4 @@ data class TouristicSitesInfo(val idSiteTouristic: Int? = null)
 data class DepartmentInfo(val idDepartment: Int? = null)
 
 @Serializable
-data class Map(val latitude: String, val longitude: String)
+data class Map(val latitude: String, val longitude: String, val title: String, val snippet: String)
